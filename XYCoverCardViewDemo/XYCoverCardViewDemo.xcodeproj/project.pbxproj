@@ -1,0 +1,402 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		64B3EDF7286D5362004A9A71 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EDF6286D5362004A9A71 /* AppDelegate.m */; };
+		64B3EDFA286D5362004A9A71 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EDF9286D5362004A9A71 /* SceneDelegate.m */; };
+		64B3EDFD286D5362004A9A71 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EDFC286D5362004A9A71 /* ViewController.m */; };
+		64B3EE00286D5362004A9A71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B3EDFE286D5362004A9A71 /* Main.storyboard */; };
+		64B3EE02286D5364004A9A71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64B3EE01286D5364004A9A71 /* Assets.xcassets */; };
+		64B3EE05286D5364004A9A71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B3EE03286D5364004A9A71 /* LaunchScreen.storyboard */; };
+		64B3EE08286D5364004A9A71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE07286D5364004A9A71 /* main.m */; };
+		64B3EE19286D5378004A9A71 /* XYCoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE0F286D5378004A9A71 /* XYCoverCell.m */; };
+		64B3EE1A286D5378004A9A71 /* XYCoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE12286D5378004A9A71 /* XYCoverModel.m */; };
+		64B3EE1B286D5378004A9A71 /* XYCoverCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE15286D5378004A9A71 /* XYCoverCardView.m */; };
+		64B3EE1C286D5378004A9A71 /* XYCoverCardCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE16286D5378004A9A71 /* XYCoverCardCollectionView.m */; };
+		64B3EE1D286D5378004A9A71 /* XYCoverCardViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE17286D5378004A9A71 /* XYCoverCardViewLayout.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		64B3EDF2286D5362004A9A71 /* XYCoverCardViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XYCoverCardViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64B3EDF5286D5362004A9A71 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		64B3EDF6286D5362004A9A71 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		64B3EDF8286D5362004A9A71 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		64B3EDF9286D5362004A9A71 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		64B3EDFB286D5362004A9A71 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		64B3EDFC286D5362004A9A71 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		64B3EDFF286D5362004A9A71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		64B3EE01286D5364004A9A71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		64B3EE04286D5364004A9A71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		64B3EE06286D5364004A9A71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64B3EE07286D5364004A9A71 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		64B3EE0F286D5378004A9A71 /* XYCoverCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCell.m; sourceTree = "<group>"; };
+		64B3EE10286D5378004A9A71 /* XYCoverCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCardView.h; sourceTree = "<group>"; };
+		64B3EE11286D5378004A9A71 /* XYCoverCardCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCardCollectionView.h; sourceTree = "<group>"; };
+		64B3EE12286D5378004A9A71 /* XYCoverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverModel.m; sourceTree = "<group>"; };
+		64B3EE13286D5378004A9A71 /* XYCoverCardViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCardViewLayout.h; sourceTree = "<group>"; };
+		64B3EE14286D5378004A9A71 /* XYCoverCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCell.h; sourceTree = "<group>"; };
+		64B3EE15286D5378004A9A71 /* XYCoverCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCardView.m; sourceTree = "<group>"; };
+		64B3EE16286D5378004A9A71 /* XYCoverCardCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCardCollectionView.m; sourceTree = "<group>"; };
+		64B3EE17286D5378004A9A71 /* XYCoverCardViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCardViewLayout.m; sourceTree = "<group>"; };
+		64B3EE18286D5378004A9A71 /* XYCoverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverModel.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		64B3EDEF286D5362004A9A71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		64B3EDE9286D5362004A9A71 = {
+			isa = PBXGroup;
+			children = (
+				64B3EDF4286D5362004A9A71 /* XYCoverCardViewDemo */,
+				64B3EDF3286D5362004A9A71 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		64B3EDF3286D5362004A9A71 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64B3EDF2286D5362004A9A71 /* XYCoverCardViewDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		64B3EDF4286D5362004A9A71 /* XYCoverCardViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				64B3EE0E286D5378004A9A71 /* XYCoverCardView */,
+				64B3EDF5286D5362004A9A71 /* AppDelegate.h */,
+				64B3EDF6286D5362004A9A71 /* AppDelegate.m */,
+				64B3EDF8286D5362004A9A71 /* SceneDelegate.h */,
+				64B3EDF9286D5362004A9A71 /* SceneDelegate.m */,
+				64B3EDFB286D5362004A9A71 /* ViewController.h */,
+				64B3EDFC286D5362004A9A71 /* ViewController.m */,
+				64B3EDFE286D5362004A9A71 /* Main.storyboard */,
+				64B3EE01286D5364004A9A71 /* Assets.xcassets */,
+				64B3EE03286D5364004A9A71 /* LaunchScreen.storyboard */,
+				64B3EE06286D5364004A9A71 /* Info.plist */,
+				64B3EE07286D5364004A9A71 /* main.m */,
+			);
+			path = XYCoverCardViewDemo;
+			sourceTree = "<group>";
+		};
+		64B3EE0E286D5378004A9A71 /* XYCoverCardView */ = {
+			isa = PBXGroup;
+			children = (
+				64B3EE11286D5378004A9A71 /* XYCoverCardCollectionView.h */,
+				64B3EE16286D5378004A9A71 /* XYCoverCardCollectionView.m */,
+				64B3EE10286D5378004A9A71 /* XYCoverCardView.h */,
+				64B3EE15286D5378004A9A71 /* XYCoverCardView.m */,
+				64B3EE13286D5378004A9A71 /* XYCoverCardViewLayout.h */,
+				64B3EE17286D5378004A9A71 /* XYCoverCardViewLayout.m */,
+				64B3EE14286D5378004A9A71 /* XYCoverCell.h */,
+				64B3EE0F286D5378004A9A71 /* XYCoverCell.m */,
+				64B3EE18286D5378004A9A71 /* XYCoverModel.h */,
+				64B3EE12286D5378004A9A71 /* XYCoverModel.m */,
+			);
+			path = XYCoverCardView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		64B3EDF1286D5362004A9A71 /* XYCoverCardViewDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64B3EE0B286D5364004A9A71 /* Build configuration list for PBXNativeTarget "XYCoverCardViewDemo" */;
+			buildPhases = (
+				64B3EDEE286D5362004A9A71 /* Sources */,
+				64B3EDEF286D5362004A9A71 /* Frameworks */,
+				64B3EDF0286D5362004A9A71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XYCoverCardViewDemo;
+			productName = XYCoverCardViewDemo;
+			productReference = 64B3EDF2286D5362004A9A71 /* XYCoverCardViewDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		64B3EDEA286D5362004A9A71 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					64B3EDF1286D5362004A9A71 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 64B3EDED286D5362004A9A71 /* Build configuration list for PBXProject "XYCoverCardViewDemo" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 64B3EDE9286D5362004A9A71;
+			productRefGroup = 64B3EDF3286D5362004A9A71 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				64B3EDF1286D5362004A9A71 /* XYCoverCardViewDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		64B3EDF0286D5362004A9A71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64B3EE05286D5364004A9A71 /* LaunchScreen.storyboard in Resources */,
+				64B3EE02286D5364004A9A71 /* Assets.xcassets in Resources */,
+				64B3EE00286D5362004A9A71 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64B3EDEE286D5362004A9A71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64B3EDFD286D5362004A9A71 /* ViewController.m in Sources */,
+				64B3EDF7286D5362004A9A71 /* AppDelegate.m in Sources */,
+				64B3EE1A286D5378004A9A71 /* XYCoverModel.m in Sources */,
+				64B3EE08286D5364004A9A71 /* main.m in Sources */,
+				64B3EE1B286D5378004A9A71 /* XYCoverCardView.m in Sources */,
+				64B3EE19286D5378004A9A71 /* XYCoverCell.m in Sources */,
+				64B3EE1D286D5378004A9A71 /* XYCoverCardViewLayout.m in Sources */,
+				64B3EDFA286D5362004A9A71 /* SceneDelegate.m in Sources */,
+				64B3EE1C286D5378004A9A71 /* XYCoverCardCollectionView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		64B3EDFE286D5362004A9A71 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64B3EDFF286D5362004A9A71 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		64B3EE03286D5364004A9A71 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64B3EE04286D5364004A9A71 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		64B3EE09286D5364004A9A71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		64B3EE0A286D5364004A9A71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		64B3EE0C286D5364004A9A71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XYCoverCardViewDemo/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = iOSyan.XYCoverCardViewDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		64B3EE0D286D5364004A9A71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XYCoverCardViewDemo/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = iOSyan.XYCoverCardViewDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		64B3EDED286D5362004A9A71 /* Build configuration list for PBXProject "XYCoverCardViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64B3EE09286D5364004A9A71 /* Debug */,
+				64B3EE0A286D5364004A9A71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64B3EE0B286D5364004A9A71 /* Build configuration list for PBXNativeTarget "XYCoverCardViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64B3EE0C286D5364004A9A71 /* Debug */,
+				64B3EE0D286D5364004A9A71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 64B3EDEA286D5362004A9A71 /* Project object */;
+}
