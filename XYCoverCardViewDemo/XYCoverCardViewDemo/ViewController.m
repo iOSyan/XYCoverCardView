@@ -28,7 +28,9 @@
 - (void)setupCoverView {
     self.cardView = [[XYCoverCardView alloc] initWithFrame:CGRectMake(0, 0, 280, 180)];
     self.cardView.dataArray = self.dataArray;
+    // 重叠的方向
     self.cardView.coverDirectionType = XYCoverDirectionRight;
+    // 移动的方向
     self.cardView.movedDirectionType = XYMovedDirectionLeft;
     self.cardView.timerDuration = 2.0;
     
