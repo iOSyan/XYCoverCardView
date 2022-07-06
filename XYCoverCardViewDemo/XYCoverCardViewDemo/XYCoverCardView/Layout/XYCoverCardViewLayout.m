@@ -9,44 +9,57 @@
 #import "XYCoverCardViewLayout.h"
 
 @interface XYCoverCardViewLayout ()
-@property (nonatomic, strong) NSMutableArray *cachedAttributes;
+@property (nonatomic, strong) NSMutableArray *attributesArray;
 @property (nonatomic, assign) CGRect contentBounds;
-/// 卡片左右之间的距离
-@property (nonatomic, assign) CGFloat lineSpacing;
-/// 卡片底部之间的距离
-@property (nonatomic, assign) CGFloat interitemSpacing;
 @end
 
 @implementation XYCoverCardViewLayout
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    self.coverDirectionType = XYCoverDirectionBottom;
+    self.lineSpacing = 15;
+    self.itemSpacing = 15;
+}
+
 - (void)prepareLayout {
     [super prepareLayout];
     
-    self.lineSpacing = 15;
-    self.interitemSpacing = 15;
-    
-    [self.cachedAttributes removeAllObjects];
+    [self.attributesArray removeAllObjects];
     self.contentBounds = CGRectMake(0, 0, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height);
     NSInteger count = [self.collectionView numberOfItemsInSection:0];
     NSInteger currentIndex = 0;
     
     while (currentIndex < count) {
-        
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:[NSIndexPath indexPathForItem:currentIndex inSection:0]];
         attributes.frame = self.collectionView.bounds;
         
         // 计算每个 cell 的宽度和高度
         CGFloat width = self.collectionView.bounds.size.width - currentIndex * self.lineSpacing * 2.0;
-        CGFloat height = self.collectionView.bounds.size.height - currentIndex * self.interitemSpacing * 2.0;
+        CGFloat height = self.collectionView.bounds.size.height - currentIndex * self.itemSpacing * 2.0;
         // 计算出缩放的比例
         CGFloat scaleX = width / attributes.bounds.size.width;
         CGFloat scaleY = height / attributes.bounds.size.height;
         
         CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scaleX, scaleY);
         
-        CGAffineTransform transform = CGAffineTransformTranslate(scaleTransform, 0, currentIndex * self.interitemSpacing * 2.0);
+        CGAffineTransform transform;
+        if (self.coverDirectionType == XYCoverDirectionRight) {
+            transform = CGAffineTransformTranslate(scaleTransform, currentIndex * self.itemSpacing * 2.0, 0);
+        } else {
+            transform = CGAffineTransformTranslate(scaleTransform, 0, currentIndex * self.itemSpacing * 2.0);
+        }
+        
         attributes.transform = transform;
-        [self.cachedAttributes insertObject:attributes atIndex:0];
+        [self.attributesArray insertObject:attributes atIndex:0];
         
         if (currentIndex == 0) {
             attributes.transform = CGAffineTransformIdentity;
@@ -61,19 +74,19 @@
 }
 
 - (NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
-    return self.cachedAttributes;
+    return self.attributesArray;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return self.cachedAttributes[indexPath.item];
+    return self.attributesArray[indexPath.item];
 }
 
 #pragma mark - getter
-- (NSMutableArray *)cachedAttributes {
-    if (_cachedAttributes == nil) {
-        _cachedAttributes = [NSMutableArray array];
+- (NSMutableArray *)attributesArray {
+    if (_attributesArray == nil) {
+        _attributesArray = [NSMutableArray array];
     }
-    return _cachedAttributes;
+    return _attributesArray;
 }
 
 @end

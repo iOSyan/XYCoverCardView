@@ -7,14 +7,13 @@
 //
 
 #import "XYCoverCardView.h"
-#import "XYCoverCardViewLayout.h"
 #import "XYCoverCardCollectionView.h"
 
 @interface XYCoverCardView () <UICollectionViewDataSource, UICollectionViewDelegate>
  
-@property (nonatomic,strong) UIPageControl   *pageControl;
+@property (nonatomic,strong) UIPageControl *pageControl;
  
-@property (nonatomic,strong) NSTimer           *timer;
+@property (nonatomic,strong) NSTimer *timer;
 
 @property (nonatomic, assign) NSInteger currentPage;
 
@@ -29,17 +28,28 @@
 }
 
 
+- (void)dealloc {
+    NSLog(@"dealloc");
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        [self setup];
         [self setupUI];
     }
     return self;
-    
+}
+
+- (void)setup {
+    self.timerDuration = 2.0;
+    self.movedDirectionType = XYMovedDirectionRight;
 }
 
 - (void)setupUI {
+    
     XYCoverCardViewLayout *layout = [[XYCoverCardViewLayout alloc] init];
+    layout.coverDirectionType = self.coverDirectionType;
     self.collectionView = [[XYCoverCardCollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
     self.collectionView.clipsToBounds = NO;
     self.collectionView.dataSource = self;
@@ -48,11 +58,7 @@
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
     [self.collectionView addGestureRecognizer:panGesture];
     [self addSubview:self.collectionView];
-    
-    [self addTimer];
-    self.pageControl.currentPage = 0;
 }
-
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -69,8 +75,21 @@
 
 - (void)reloadData {
     [self.collectionView reloadData];
+    
+    self.pageControl.currentPage = 0;
+    self.pageControl.numberOfPages = [self.cardViewDataSource numberOfItemsInCoverCardView:self];
 }
 
+#pragma mark - setter
+- (void)setCardViewDataSource:(id<XYCoverCardViewDataSource>)cardViewDataSource {
+    _cardViewDataSource = cardViewDataSource;
+    
+    self.pageControl.numberOfPages = [self.cardViewDataSource numberOfItemsInCoverCardView:self];
+    
+    [self addTimer];
+}
+
+#pragma mark - 卡片的处理
 - (void)insertCellsAtIndexPath:(NSArray *)indexPaths {
     [UIView performWithoutAnimation:^{
         [self.collectionView insertItemsAtIndexPaths:indexPaths];
@@ -81,47 +100,19 @@
     [self.collectionView performBatchUpdates:updates completion:completion];
 }
 
-#pragma mark - NSTimer
-//添加定时器
-- (void)addTimer{
-
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(nextPage:) userInfo:nil repeats:YES];
-   //添加到runloop中
-   [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-   self.timer = timer;
-}
-
-//删除定时器
-- (void)removeTimer{
-
-   [self.timer invalidate];
-   self.timer = nil;
-}
-
-//自动滚动
-- (void)nextPage:(BOOL)isSwipeLeft{
+// 滚动
+- (void)nextPage:(XYMovedDirectionType)movedDirection {
     self.currentPage++;
     if (self.currentPage == 4) {
         self.currentPage = 0;
     }
-
-//  NSInteger currentNumber = self.pageControl.currentPage;
-//   CGFloat x = ((currentNumber + 1)%5) * self.collectionView.bounds.size.width;
-//
-//   if (currentNumber <= 5) {
-//       [self.collectionView setContentOffset:CGPointMake(x, 0) animated:YES];
-//
-//   }else{
-//       [self.collectionView setContentOffset:CGPointMake(x, 0) animated:NO];
-//   }
     
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    CGFloat x = isSwipeLeft ? -200 : 200;
+    CGFloat x = movedDirection == XYMovedDirectionLeft ? -200 : 200;
     [UIView animateWithDuration:0.25 animations:^{
         
         CGAffineTransform currentTransform = cell.transform;
         cell.transform = CGAffineTransformTranslate(currentTransform, x, 0);
-//        cell.transform = currentTransform.translatedBy(x: 200, y: 200)
     } completion:^(BOOL finished) {
         
         cell.hidden = YES;
@@ -129,16 +120,31 @@
             cell.hidden = NO;
         }];
     }];
-
-       self.pageControl.currentPage = self.currentPage;
-
-}
-
-- (void)dealloc {
     
-    NSLog(@"dealloc");
+    self.pageControl.currentPage = self.currentPage;
 }
 
+#pragma mark - NSTimer
+// 添加定时器
+- (void)addTimer {
+
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.timerDuration target:self selector:@selector(aotuNextPage) userInfo:nil repeats:YES];
+   // 添加到runloop中
+   [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+   self.timer = timer;
+}
+
+// 删除定时器
+- (void)removeTimer {
+
+   [self.timer invalidate];
+   self.timer = nil;
+}
+
+// 自动滚动
+- (void)aotuNextPage {
+    [self nextPage: self.movedDirectionType];
+}
 
 #pragma mark - 点击事件
 - (void)panGestureAction:(UIPanGestureRecognizer *)panGesture {
@@ -157,7 +163,7 @@
         {
             CGPoint movePoint = [panGesture translationInView:panGesture.view];
             // 只允许左右滑动
-            if (movePoint.y > 10 || movePoint.y < -10) return;
+            if (movePoint.y > 20 || movePoint.y < -20) return;
             self.movingPoint = CGPointMake(self.movingPoint.x + movePoint.x, self.movingPoint.y);
             cell.transform = CGAffineTransformMakeTranslation(self.movingPoint.x, self.movingPoint.y);
             [panGesture setTranslation:CGPointZero inView:panGesture.view];
@@ -166,11 +172,11 @@
         case UIGestureRecognizerStateEnded:
         {
             if (self.movingPoint.x > 100) {
-                
-                [self nextPage:NO];
+                // 右滑
+                [self nextPage: XYMovedDirectionRight];
             } else if (self.movingPoint.x < -100) {
-                
-                [self nextPage:YES];
+                // 左滑
+                [self nextPage: XYMovedDirectionLeft];
             }
             
             else
@@ -209,14 +215,14 @@
 
 #pragma mark - getter
 //懒加载pageControl
-- (UIPageControl *)pageControl{
+- (UIPageControl *)pageControl {
  
     if (_pageControl == nil) {
         //分页控件，本质上和scorllView没有任何关系，是2个独立的控件
         _pageControl = [[UIPageControl alloc]init];
-        _pageControl.numberOfPages = 4;
+//        _pageControl.numberOfPages = 4;
         CGSize size = [_pageControl sizeForNumberOfPages:5];
-        _pageControl.frame = CGRectMake((self.frame.size.width - size.width)/2, self.frame.size.height - size.height, size.width, size.height);
+        _pageControl.frame = CGRectMake((self.frame.size.width - size.width)/2, self.frame.size.height - size.height - 10, size.width, size.height);
         _pageControl.pageIndicatorTintColor = [UIColor yellowColor];
         _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
         [self addSubview:_pageControl];

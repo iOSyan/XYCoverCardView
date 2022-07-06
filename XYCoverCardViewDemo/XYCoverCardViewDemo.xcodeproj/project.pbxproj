@@ -17,8 +17,8 @@
 		64B3EE19286D5378004A9A71 /* XYCoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE0F286D5378004A9A71 /* XYCoverCell.m */; };
 		64B3EE1A286D5378004A9A71 /* XYCoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE12286D5378004A9A71 /* XYCoverModel.m */; };
 		64B3EE1B286D5378004A9A71 /* XYCoverCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE15286D5378004A9A71 /* XYCoverCardView.m */; };
-		64B3EE1C286D5378004A9A71 /* XYCoverCardCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE16286D5378004A9A71 /* XYCoverCardCollectionView.m */; };
 		64B3EE1D286D5378004A9A71 /* XYCoverCardViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B3EE17286D5378004A9A71 /* XYCoverCardViewLayout.m */; };
+		64BE156D28752AC000869C4A /* XYCoverCardCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BE156B28752AC000869C4A /* XYCoverCardCollectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,14 +36,14 @@
 		64B3EE07286D5364004A9A71 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64B3EE0F286D5378004A9A71 /* XYCoverCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCell.m; sourceTree = "<group>"; };
 		64B3EE10286D5378004A9A71 /* XYCoverCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCardView.h; sourceTree = "<group>"; };
-		64B3EE11286D5378004A9A71 /* XYCoverCardCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCardCollectionView.h; sourceTree = "<group>"; };
 		64B3EE12286D5378004A9A71 /* XYCoverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverModel.m; sourceTree = "<group>"; };
 		64B3EE13286D5378004A9A71 /* XYCoverCardViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCardViewLayout.h; sourceTree = "<group>"; };
 		64B3EE14286D5378004A9A71 /* XYCoverCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCell.h; sourceTree = "<group>"; };
 		64B3EE15286D5378004A9A71 /* XYCoverCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCardView.m; sourceTree = "<group>"; };
-		64B3EE16286D5378004A9A71 /* XYCoverCardCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCardCollectionView.m; sourceTree = "<group>"; };
 		64B3EE17286D5378004A9A71 /* XYCoverCardViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCardViewLayout.m; sourceTree = "<group>"; };
 		64B3EE18286D5378004A9A71 /* XYCoverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverModel.h; sourceTree = "<group>"; };
+		64BE156B28752AC000869C4A /* XYCoverCardCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYCoverCardCollectionView.m; sourceTree = "<group>"; };
+		64BE156C28752AC000869C4A /* XYCoverCardCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYCoverCardCollectionView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,18 +95,26 @@
 		64B3EE0E286D5378004A9A71 /* XYCoverCardView */ = {
 			isa = PBXGroup;
 			children = (
-				64B3EE11286D5378004A9A71 /* XYCoverCardCollectionView.h */,
-				64B3EE16286D5378004A9A71 /* XYCoverCardCollectionView.m */,
+				64BE156728751FB200869C4A /* Layout */,
 				64B3EE10286D5378004A9A71 /* XYCoverCardView.h */,
 				64B3EE15286D5378004A9A71 /* XYCoverCardView.m */,
-				64B3EE13286D5378004A9A71 /* XYCoverCardViewLayout.h */,
-				64B3EE17286D5378004A9A71 /* XYCoverCardViewLayout.m */,
+				64BE156C28752AC000869C4A /* XYCoverCardCollectionView.h */,
+				64BE156B28752AC000869C4A /* XYCoverCardCollectionView.m */,
 				64B3EE14286D5378004A9A71 /* XYCoverCell.h */,
 				64B3EE0F286D5378004A9A71 /* XYCoverCell.m */,
 				64B3EE18286D5378004A9A71 /* XYCoverModel.h */,
 				64B3EE12286D5378004A9A71 /* XYCoverModel.m */,
 			);
 			path = XYCoverCardView;
+			sourceTree = "<group>";
+		};
+		64BE156728751FB200869C4A /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				64B3EE13286D5378004A9A71 /* XYCoverCardViewLayout.h */,
+				64B3EE17286D5378004A9A71 /* XYCoverCardViewLayout.m */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,8 +194,8 @@
 				64B3EE1B286D5378004A9A71 /* XYCoverCardView.m in Sources */,
 				64B3EE19286D5378004A9A71 /* XYCoverCell.m in Sources */,
 				64B3EE1D286D5378004A9A71 /* XYCoverCardViewLayout.m in Sources */,
+				64BE156D28752AC000869C4A /* XYCoverCardCollectionView.m in Sources */,
 				64B3EDFA286D5362004A9A71 /* SceneDelegate.m in Sources */,
-				64B3EE1C286D5378004A9A71 /* XYCoverCardCollectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

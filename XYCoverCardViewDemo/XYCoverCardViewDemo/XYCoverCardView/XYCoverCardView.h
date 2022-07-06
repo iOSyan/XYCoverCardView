@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XYCoverCardViewLayout.h"
 @class XYCoverCardView;
 
 NS_ASSUME_NONNULL_BEGIN
+
+/// 划走的方向
+typedef NS_ENUM(NSInteger, XYMovedDirectionType)
+{
+    XYMovedDirectionLeft,
+    XYMovedDirectionRight,
+};
 
 typedef  void (^UpdateCallback)(void);
 typedef  void (^UpdatesBlock)(void);
@@ -30,6 +38,15 @@ typedef  void (^Completion)(BOOL);
 @end
 
 @interface XYCoverCardView : UIView
+
+/// 覆盖的方向
+@property (nonatomic, assign) XYCoverDirectionType coverDirectionType;
+
+/// 划走的方向
+@property (nonatomic, assign) XYMovedDirectionType movedDirectionType;
+
+/// 自动轮播时间间隔 默认2s
+@property (nonatomic, assign) CGFloat timerDuration;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) CGPoint movingPoint;

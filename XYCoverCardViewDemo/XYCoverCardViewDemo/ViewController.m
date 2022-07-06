@@ -19,22 +19,18 @@
 
 @implementation ViewController
 
-- (NSMutableArray *)dataArray {
-    if (_dataArray == nil) {
-        _dataArray = [NSMutableArray array];
-        for (int i = 0; i < 4; i++) {
-            XYCoverModel *m = [[XYCoverModel alloc] init];
-            m.name = [NSString stringWithFormat:@"%d", i];
-            [_dataArray addObject:m];
-        }
-    }
-    return _dataArray;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.cardView = [[XYCoverCardView alloc] initWithFrame:CGRectMake(0, 0, 280, 380)];
+    [self setupCoverView];
+}
+
+- (void)setupCoverView {
+    self.cardView = [[XYCoverCardView alloc] initWithFrame:CGRectMake(0, 0, 280, 180)];
+    self.cardView.coverDirectionType = XYCoverDirectionRight;
+    self.cardView.movedDirectionType = XYMovedDirectionLeft;
+    self.cardView.timerDuration = 2.0;
+    
     self.cardView.center = self.view.center;
     [self.cardView registerCellClass:[XYCoverCell class] forCellWithReuseIdentifier:@"cellID"];
     self.cardView.cardViewDataSource = self;
@@ -59,7 +55,6 @@
     [self.dataArray removeObjectAtIndex:0];
     
     [coverCardView performBatchUpdates:^{
-//        NSLog(@"%@", coverCardView.collectionView.subviews);
         if (coverCardView.collectionView.subviews.count == 2) {
             // 如果只有两个 是两个Indicator 没有items
             return;
@@ -81,6 +76,18 @@
     NSLog(@"%@", m.name);
 }
 
+#pragma mark - getter
+- (NSMutableArray *)dataArray {
+    if (_dataArray == nil) {
+        _dataArray = [NSMutableArray array];
+        for (int i = 0; i < 4; i++) {
+            XYCoverModel *m = [[XYCoverModel alloc] init];
+            m.name = [NSString stringWithFormat:@"%d", i];
+            [_dataArray addObject:m];
+        }
+    }
+    return _dataArray;
+}
 
 
 @end
