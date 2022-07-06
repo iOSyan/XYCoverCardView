@@ -21,17 +21,6 @@
 
 @implementation XYCoverCardView
 
-- (void)removeFromSuperview {
-    [super removeFromSuperview];
-    
-    [self removeTimer];
-}
-
-
-- (void)dealloc {
-    NSLog(@"dealloc");
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -65,6 +54,16 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.collectionView.frame = self.bounds;
+}
+
+- (void)removeFromSuperview {
+    [super removeFromSuperview];
+    
+    [self removeTimer];
+}
+
+- (void)dealloc {
+    NSLog(@"dealloc");
 }
 
 - (void)registerCellClass:(Class)anyClass forCellWithReuseIdentifier:(NSString *)identifier {
