@@ -43,7 +43,7 @@
     XYCoverCell *cell = (XYCoverCell *)[coverCardView dequeueReusableCellWithReuseIdentifier:@"cellID" forIndexPath:indexPath];
     XYCoverModel *m = self.dataArray[indexPath.item];
     cell.label.text = m.name;
-    cell.backgroundColor = [UIColor lightGrayColor];
+    cell.backgroundColor = [self randomColor];
     return cell;
 }
 
@@ -56,13 +56,20 @@
 - (NSMutableArray *)dataArray {
     if (_dataArray == nil) {
         _dataArray = [NSMutableArray array];
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             XYCoverModel *m = [[XYCoverModel alloc] init];
             m.name = [NSString stringWithFormat:@"%d", i];
             [_dataArray addObject:m];
         }
     }
     return _dataArray;
+}
+
+- (UIColor *)randomColor {
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  // 0.5 to 1.0,away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //0.5 to 1.0,away from black
+    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 }
 
 

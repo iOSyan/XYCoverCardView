@@ -107,60 +107,6 @@
     [self refreshPageControlFrame];
 }
 
-#pragma mark - 卡片的处理
-- (void)insertCellsAtIndexPath:(NSArray *)indexPaths {
-    [UIView performWithoutAnimation:^{
-        [self.collectionView insertItemsAtIndexPaths:indexPaths];
-    }];
-}
-
-- (void)performBatchUpdates:(UpdatesBlock)updates completion:(Completion)completion {
-    [self.collectionView performBatchUpdates:updates completion:completion];
-}
-
-// 滚动
-- (void)nextPage:(XYMovedDirectionType)movedDirection {
-    if (self.dataArray.count < 2) return;
-    
-    self.currentPage++;
-    if (self.currentPage == self.dataArray.count - 1) {
-        self.currentPage = 0;
-    }
-    
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    CGFloat x = movedDirection == XYMovedDirectionLeft ? -200 : 200;
-    
-    if (self.dataArray.count > 1) {
-        
-    }
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        CGAffineTransform currentTransform = cell.transform;
-        cell.transform = CGAffineTransformTranslate(currentTransform, x, 0);
-    } completion:^(BOOL finished) {
-        
-        cell.hidden = YES;
-        
-        /// 移除cell之后, 调用此方法, 需要从数据源移除model
-        id model = self.dataArray[0];
-        [self.dataArray removeObjectAtIndex:0];
-        
-        [self performBatchUpdates:^{
-            // 如果只有两个 是两个Indicator 没有items
-            if (self.collectionView.subviews.count == 2) return;
-            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
-        } completion:^(BOOL finished) {
-            NSArray *indexes = @[[NSIndexPath indexPathForItem:self.dataArray.count inSection:0]];
-            [self.dataArray addObject:model];
-            [self insertCellsAtIndexPath:indexes];
-            
-            cell.hidden = NO;
-        }];
-    }];
-    
-    self.pageControl.currentPage = self.currentPage;
-}
-
 #pragma mark - NSTimer
 // 添加定时器
 - (void)addTimer {
@@ -183,6 +129,64 @@
     [self nextPage: self.movedDirectionType];
 }
 
+#pragma mark - 卡片的处理
+- (void)insertCellsAtIndexPath:(NSArray *)indexPaths {
+    [UIView performWithoutAnimation:^{
+        [self.collectionView insertItemsAtIndexPaths:indexPaths];
+    }];
+}
+
+- (void)performBatchUpdates:(UpdatesBlock)updates completion:(Completion)completion {
+    [self.collectionView performBatchUpdates:updates completion:completion];
+}
+
+// 滑到下一张
+- (void)moveCell:(UICollectionViewCell *)cell toNextWithGesture:(UIPanGestureRecognizer *)panGesture point:(CGPoint)movePoint {
+    self.movingPoint = CGPointMake(self.movingPoint.x + movePoint.x, self.movingPoint.y);
+    cell.transform = CGAffineTransformMakeTranslation(self.movingPoint.x, self.movingPoint.y);
+    [panGesture setTranslation:CGPointZero inView:panGesture.view];
+}
+
+// 滚动到下一页
+- (void)nextPage:(XYMovedDirectionType)movedDirection {
+    if (self.dataArray.count < 2) return;
+    
+    self.currentPage++;
+    if (self.currentPage == self.dataArray.count) {
+        self.currentPage = 0;
+    }
+    
+    CGFloat x = movedDirection == XYMovedDirectionLeft ? -200 : 200;
+    
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        cell.transform = CGAffineTransformTranslate(cell.transform, x, 0);
+    } completion:^(BOOL finished) {
+        
+        cell.hidden = YES;
+        
+        /// 移除cell之后, 调用此方法, 需要从数据源移除model
+        id model = self.dataArray[0];
+        [self.dataArray removeObjectAtIndex:0];
+        
+        [self performBatchUpdates:^{
+            // 如果只有两个 是两个Indicator 没有items
+            if (self.collectionView.subviews.count == 2) return;
+            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
+            
+        } completion:^(BOOL finished) {
+            NSArray *indexes = @[[NSIndexPath indexPathForItem:self.dataArray.count inSection:0]];
+            [self.dataArray addObject:model];
+            
+            [self insertCellsAtIndexPath:indexes];
+            cell.hidden = NO;
+        }];
+    }];
+    
+    self.pageControl.currentPage = self.currentPage;
+}
+
 #pragma mark - 手势
 - (void)panGestureAction:(UIPanGestureRecognizer *)panGesture {
     
@@ -191,6 +195,7 @@
     // 获取到当前cell
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     
+    CGPoint movePoint = [panGesture translationInView:panGesture.view];
     switch (panGesture.state) {
         case UIGestureRecognizerStateBegan:
         {
@@ -201,21 +206,22 @@
             break;
         case UIGestureRecognizerStateChanged:
         {
-            CGPoint movePoint = [panGesture translationInView:panGesture.view];
             // 只允许左右滑动
             if (movePoint.y > 20 || movePoint.y < -20) return;
-            self.movingPoint = CGPointMake(self.movingPoint.x + movePoint.x, self.movingPoint.y);
-            cell.transform = CGAffineTransformMakeTranslation(self.movingPoint.x, self.movingPoint.y);
-            [panGesture setTranslation:CGPointZero inView:panGesture.view];
+            
+            // 卡片划走的方向 -> 右 下一张
+            [self moveCell:cell toNextWithGesture:panGesture point:movePoint];
         }
             break;
         case UIGestureRecognizerStateEnded:
         {
-            if (self.movingPoint.x > 100) {
-                // 右滑
+            if (self.movingPoint.x > 100) { // 右滑
+                
+                // 卡片划走的方向 -> 左 下一张
                 [self nextPage: XYMovedDirectionRight];
-            } else if (self.movingPoint.x < -100) {
-                // 左滑
+                
+            } else if (self.movingPoint.x < -100) { // 左滑
+                // 卡片划走的方向 -> 左 下一张
                 [self nextPage: XYMovedDirectionLeft];
             }
             
