@@ -47,27 +47,6 @@
     return cell;
 }
 
-- (void)coverCardView:(XYCoverCardView *)coverCardView didRemoveCell:(UICollectionViewCell *)cell updateCallback:(UpdateCallback)updateCallback {
-    XYCoverModel *model = self.dataArray[0];
-    [self.dataArray removeObjectAtIndex:0];
-    
-    [coverCardView performBatchUpdates:^{
-        if (coverCardView.collectionView.subviews.count == 2) {
-            // 如果只有两个 是两个Indicator 没有items
-            return;
-        }
-        [coverCardView.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
-    } completion:^(BOOL finished) {
-        NSArray *indexes = @[[NSIndexPath indexPathForItem:self.dataArray.count inSection:0]];
-        [self.dataArray addObject:model];
-        [coverCardView insertCellsAtIndexPath:indexes];
-        
-        if (updateCallback) {
-            updateCallback();
-        }
-    }];
-}
-
 - (void)coverCardView:(XYCoverCardView *)coverCardView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     XYCoverModel *m = self.dataArray[indexPath.item];
     NSLog(@"%@", m.name);
@@ -77,7 +56,7 @@
 - (NSMutableArray *)dataArray {
     if (_dataArray == nil) {
         _dataArray = [NSMutableArray array];
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             XYCoverModel *m = [[XYCoverModel alloc] init];
             m.name = [NSString stringWithFormat:@"%d", i];
             [_dataArray addObject:m];

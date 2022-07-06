@@ -19,16 +19,12 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     XYMovedDirectionRight,
 };
 
-typedef  void (^UpdateCallback)(void);
 typedef  void (^UpdatesBlock)(void);
 typedef  void (^Completion)(BOOL);
 
 @protocol XYCoverCardViewDataSource <NSObject>
 
 - (UICollectionViewCell *)coverCardView:(XYCoverCardView *)coverCardView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-
-/// 移除cell之后, 调用此方法, 需要从数据源移除model. 数据处理完成之后,必须在最后调用callback闭包
-- (void)coverCardView:(XYCoverCardView *)coverCardView didRemoveCell:(UICollectionViewCell *)cell updateCallback:(UpdateCallback)updateCallback;
 
 @optional
 - (void)coverCardView:(XYCoverCardView *)coverCardView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;

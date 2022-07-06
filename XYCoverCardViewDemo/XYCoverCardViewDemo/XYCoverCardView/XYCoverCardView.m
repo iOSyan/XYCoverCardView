@@ -99,6 +99,9 @@
 - (void)setDataArray:(NSMutableArray *)dataArray {
     _dataArray = dataArray;
     
+    self.pageControl.hidden = dataArray.count < 2;
+    if (self.pageControl.hidden) return;
+    
     self.pageControl.numberOfPages = dataArray.count;
     self.pageControl.currentPage = 0;
     [self refreshPageControlFrame];
@@ -117,21 +120,40 @@
 
 // 滚动
 - (void)nextPage:(XYMovedDirectionType)movedDirection {
+    if (self.dataArray.count < 2) return;
+    
     self.currentPage++;
-    if (self.currentPage == 4) {
+    if (self.currentPage == self.dataArray.count - 1) {
         self.currentPage = 0;
     }
     
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     CGFloat x = movedDirection == XYMovedDirectionLeft ? -200 : 200;
-    [UIView animateWithDuration:0.25 animations:^{
+    
+    if (self.dataArray.count > 1) {
         
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
         CGAffineTransform currentTransform = cell.transform;
         cell.transform = CGAffineTransformTranslate(currentTransform, x, 0);
     } completion:^(BOOL finished) {
         
         cell.hidden = YES;
-        [self.cardViewDataSource coverCardView:self didRemoveCell:cell updateCallback:^ {
+        
+        /// 移除cell之后, 调用此方法, 需要从数据源移除model
+        id model = self.dataArray[0];
+        [self.dataArray removeObjectAtIndex:0];
+        
+        [self performBatchUpdates:^{
+            // 如果只有两个 是两个Indicator 没有items
+            if (self.collectionView.subviews.count == 2) return;
+            [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
+        } completion:^(BOOL finished) {
+            NSArray *indexes = @[[NSIndexPath indexPathForItem:self.dataArray.count inSection:0]];
+            [self.dataArray addObject:model];
+            [self insertCellsAtIndexPath:indexes];
+            
             cell.hidden = NO;
         }];
     }];
@@ -161,8 +183,11 @@
     [self nextPage: self.movedDirectionType];
 }
 
-#pragma mark - 点击事件
+#pragma mark - 手势
 - (void)panGestureAction:(UIPanGestureRecognizer *)panGesture {
+    
+    if (self.dataArray.count < 2) return;
+    
     // 获取到当前cell
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     
