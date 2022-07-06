@@ -15,6 +15,8 @@ CoverCardView， 叠加的轮播view，类似知乎的回答问题。及like or 
 ```
 <img src="https://github.com/iOSyan/XYCoverCardView/blob/main/preview1.gif?raw=true" width=30%>
 
+
+
 ```swift
     // 重叠的方向
     self.cardView.coverDirectionType = XYCoverDirectionBottom;
