@@ -27,6 +27,7 @@
 
 - (void)setupCoverView {
     self.cardView = [[XYCoverCardView alloc] initWithFrame:CGRectMake(0, 0, 280, 180)];
+    self.cardView.dataArray = self.dataArray;
     self.cardView.coverDirectionType = XYCoverDirectionRight;
     self.cardView.movedDirectionType = XYMovedDirectionLeft;
     self.cardView.timerDuration = 2.0;
@@ -38,10 +39,6 @@
 }
 
 #pragma mark - XYCoverCardViewDataSource
-- (NSInteger)numberOfItemsInCoverCardView:(XYCoverCardView *)coverCardView {
-    return self.dataArray.count;
-}
-
 - (UICollectionViewCell *)coverCardView:(XYCoverCardView *)coverCardView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     XYCoverCell *cell = (XYCoverCell *)[coverCardView dequeueReusableCellWithReuseIdentifier:@"cellID" forIndexPath:indexPath];
     XYCoverModel *m = self.dataArray[indexPath.item];

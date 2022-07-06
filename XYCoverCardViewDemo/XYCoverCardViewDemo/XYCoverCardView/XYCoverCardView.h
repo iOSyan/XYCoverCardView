@@ -25,14 +25,12 @@ typedef  void (^Completion)(BOOL);
 
 @protocol XYCoverCardViewDataSource <NSObject>
 
-@optional
-- (NSInteger)numberOfItemsInCoverCardView:(XYCoverCardView *)coverCardView;
 - (UICollectionViewCell *)coverCardView:(XYCoverCardView *)coverCardView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 /// 移除cell之后, 调用此方法, 需要从数据源移除model. 数据处理完成之后,必须在最后调用callback闭包
 - (void)coverCardView:(XYCoverCardView *)coverCardView didRemoveCell:(UICollectionViewCell *)cell updateCallback:(UpdateCallback)updateCallback;
 
-
+@optional
 - (void)coverCardView:(XYCoverCardView *)coverCardView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
@@ -47,6 +45,9 @@ typedef  void (^Completion)(BOOL);
 
 /// 自动轮播时间间隔 默认2s
 @property (nonatomic, assign) CGFloat timerDuration;
+
+/// 数据数组
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) CGPoint movingPoint;

@@ -42,6 +42,8 @@
 }
 
 - (void)setup {
+    self.dataArray = [NSMutableArray array];
+    
     self.timerDuration = 2.0;
     self.movedDirectionType = XYMovedDirectionRight;
 }
@@ -76,17 +78,30 @@
 - (void)reloadData {
     [self.collectionView reloadData];
     
+    self.pageControl.numberOfPages = self.dataArray.count;
     self.pageControl.currentPage = 0;
-    self.pageControl.numberOfPages = [self.cardViewDataSource numberOfItemsInCoverCardView:self];
+    [self refreshPageControlFrame];
+}
+
+- (void)refreshPageControlFrame {
+    CGSize size = [self.pageControl sizeForNumberOfPages:self.pageControl.numberOfPages];
+    self.pageControl.frame = CGRectMake((self.frame.size.width - size.width)/2, self.frame.size.height - size.height - 10, size.width, size.height);
+    [self bringSubviewToFront:self.pageControl];
 }
 
 #pragma mark - setter
 - (void)setCardViewDataSource:(id<XYCoverCardViewDataSource>)cardViewDataSource {
     _cardViewDataSource = cardViewDataSource;
     
-    self.pageControl.numberOfPages = [self.cardViewDataSource numberOfItemsInCoverCardView:self];
-    
     [self addTimer];
+}
+
+- (void)setDataArray:(NSMutableArray *)dataArray {
+    _dataArray = dataArray;
+    
+    self.pageControl.numberOfPages = dataArray.count;
+    self.pageControl.currentPage = 0;
+    [self refreshPageControlFrame];
 }
 
 #pragma mark - 卡片的处理
@@ -199,7 +214,7 @@
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.cardViewDataSource numberOfItemsInCoverCardView:self];
+    return self.dataArray.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -218,15 +233,12 @@
 - (UIPageControl *)pageControl {
  
     if (_pageControl == nil) {
-        //分页控件，本质上和scorllView没有任何关系，是2个独立的控件
+        //分页控件，本质上和cardView没有任何关系，是2个独立的控件
         _pageControl = [[UIPageControl alloc]init];
-//        _pageControl.numberOfPages = 4;
-        CGSize size = [_pageControl sizeForNumberOfPages:5];
-        _pageControl.frame = CGRectMake((self.frame.size.width - size.width)/2, self.frame.size.height - size.height - 10, size.width, size.height);
         _pageControl.pageIndicatorTintColor = [UIColor yellowColor];
         _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+        _pageControl.currentPage = 0;
         [self addSubview:_pageControl];
- 
     }
     return _pageControl;
 }
