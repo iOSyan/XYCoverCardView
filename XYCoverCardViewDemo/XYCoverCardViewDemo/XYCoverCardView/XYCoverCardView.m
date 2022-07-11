@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
 
 #pragma mark - 手势
 - (void)panGestureAction:(UIPanGestureRecognizer *)panGesture {
-    NSLog(@"%zd", panGesture.state);
+    
     if (self.dataArray.count < 2) return;
     
     CGPoint movePoint = [panGesture translationInView:panGesture.view];
@@ -268,7 +268,6 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
 // 滑到下一张
 - (void)moveCell:(UICollectionViewCell *)cell toNextWithGesture:(UIPanGestureRecognizer *)panGesture point:(CGPoint)movePoint {
     self.movingPoint = CGPointMake(self.movingPoint.x + movePoint.x, self.movingPoint.y);
-//    NSLog(@"moveCell %@", NSStringFromCGPoint(self.movingPoint));
     cell.transform = CGAffineTransformMakeTranslation(self.movingPoint.x, self.movingPoint.y);
     [panGesture setTranslation:CGPointZero inView:panGesture.view];
 }
