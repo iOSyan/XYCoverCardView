@@ -1,8 +1,18 @@
 # XYCoverCardView
-### 如果有任何疑问或新的需求可发邮件：ioshxy@163.com
+### 如果有任何疑问或新的需求可发邮件：ioshxy@163.com 如果有需要可以开发Swift版本。
 
 CoverCardView， 叠加的轮播view，类似知乎的回答问题。及like or pass。可定时轮播。  
 可以用于Banner，或者广告推广展示。
+
+
+2022.07.11-新增加：
+- 可以手动返回上一张。
+- 在分支dev-reverse里。下次有空的时候会合并分支。
+```swift
+    self.cardView.isCanReverse = YES;
+```
+<img src="https://github.com/iOSyan/XYCoverCardView/blob/dev-reverse/preview-reverse.gif?raw=true" width=30%>    
+
 
 2022.07.06-新增加：
 - 右边重叠效果
