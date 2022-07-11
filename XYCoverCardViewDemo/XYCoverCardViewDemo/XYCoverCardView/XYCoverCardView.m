@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     XYMovedDirectionRight,
 };
 
-@interface XYCoverCardView () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface XYCoverCardView () <UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
  
 @property (nonatomic,strong) UIPageControl *pageControl;
  
@@ -24,11 +24,16 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
 
 @property (nonatomic, assign) NSInteger currentPage;
 
+/// 正在操作
+@property (nonatomic, assign) BOOL isMoving;
+
 /// 正在滑回上一张
 @property (nonatomic, assign) BOOL isReversing;
 
 /// 划走的方向 - 固定向左
 //@property (nonatomic, assign) XYMovedDirectionType movedDirectionType;
+
+@property (nonatomic, strong)  UIPanGestureRecognizer *panGesture;
 
 @end
 
@@ -74,10 +79,13 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     self.collectionView.clipsToBounds = NO;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    [self addSubview:self.collectionView];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
+//    panGesture.delaysTouchesBegan = YES;
+    panGesture.delegate = self;
     [self.collectionView addGestureRecognizer:panGesture];
-    [self addSubview:self.collectionView];
+    self.panGesture = panGesture;
 }
 
 - (void)refreshPageControlFrame {
@@ -106,6 +114,7 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
 // 自动滚动
 - (void)aotuNextPage {
 //    [self nextPage: self.movedDirectionType];
+    self.isMoving = YES;
     // 固定方向
     [self nextPage: XYMovedDirectionLeft];
 }
@@ -125,34 +134,35 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
 
 #pragma mark - 手势
 - (void)panGestureAction:(UIPanGestureRecognizer *)panGesture {
-    
+    NSLog(@"%zd", panGesture.state);
     if (self.dataArray.count < 2) return;
     
     CGPoint movePoint = [panGesture translationInView:panGesture.view];
     
+    // 获取到当前cell
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     switch (panGesture.state) {
         case UIGestureRecognizerStateBegan: {
             self.movingPoint = CGPointZero;
             // 暂停
             [self removeTimer];
-            NSLog(@"self.isReversing - %@", @(self.isReversing));
             // 上一张
-            if (self.isCanReverse && movePoint.x > 0 && !self.isReversing) {
+            if (self.isCanReverse && movePoint.x >= 0 && !self.isReversing) {
                 self.isReversing = YES;
                 [self gestureRecognizerStateBeganWithReversing];
             }
+            
+            self.isMoving = YES;
         }
             break;
             
         case UIGestureRecognizerStateChanged: {
+            
             // 只允许左右滑动
             if (movePoint.y > 20 || movePoint.y < -20) return;
             
-            // 获取到当前cell
-            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-            
             if (self.isCanReverse) {
-                if (movePoint.x > 0 && self.isReversing) { // 手势向右滑
+                if (movePoint.x >= 0 && self.isReversing) { // 手势向右滑
                     // 卡片划的方向 -> 右 上一张
                     [self moveCell:cell toLastWithGesture:panGesture point:movePoint];
                 }  else  {
@@ -184,7 +194,6 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
             
             // 继续
             [self addTimer];
-            NSLog(@"self.isReversing - %@", @(self.isReversing));
         }
             break;
             
@@ -207,6 +216,7 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     CGRect frame = lastCell.frame;
     frame.origin.x = -frame.size.width;
     lastCell.frame = frame;
+//    lastCell.transform = CGAffineTransformMakeTranslation(-300, 0);
 }
 
 // 手势结束 不能返回上一张的情况下
@@ -233,6 +243,8 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     [UIView animateWithDuration:0.25 animations:^{
         // 还原到最初的状态
         cell.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        self.isMoving = NO;
     }];
 }
 
@@ -246,15 +258,17 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     [self.collectionView bringSubviewToFront:cell];
     
-    cell.transform = CGAffineTransformMakeTranslation(self.movingPoint.x, self.movingPoint.y);
+//    cell.transform = CGAffineTransformMakeTranslation(self.movingPoint.x, self.movingPoint.y);
+    CGRect frame = cell.frame;
+    frame.origin.x = self.movingPoint.x-frame.size.width;
+    cell.frame = frame;
     [panGesture setTranslation:CGPointZero inView:panGesture.view];
-    
-//    cell.transform = CGAffineTransformMakeTranslation(-self.movingPoint.x, self.movingPoint.y);
 }
 
 // 滑到下一张
 - (void)moveCell:(UICollectionViewCell *)cell toNextWithGesture:(UIPanGestureRecognizer *)panGesture point:(CGPoint)movePoint {
     self.movingPoint = CGPointMake(self.movingPoint.x + movePoint.x, self.movingPoint.y);
+//    NSLog(@"moveCell %@", NSStringFromCGPoint(self.movingPoint));
     cell.transform = CGAffineTransformMakeTranslation(self.movingPoint.x, self.movingPoint.y);
     [panGesture setTranslation:CGPointZero inView:panGesture.view];
 }
@@ -267,12 +281,8 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     self.currentPage--;
     [self refreshCurrentPage];
     
-//    CGFloat x = movedDirection == XYMovedDirectionRight ? 200 : -200;
-    
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];\
-    
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        cell.transform = CGAffineTransformTranslate(cell.transform, 0, 0);
         CGRect frame = cell.frame;
         frame.origin.x = 0;
         cell.frame = frame;
@@ -286,6 +296,7 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
             [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:self.dataArray.count inSection:0]]];
         } completion:^(BOOL finished) {
             self.isReversing = NO;
+            self.isMoving = NO;
         }];
     }];
     
@@ -334,10 +345,18 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
             cell.hidden = NO;
             
             self.isReversing = NO;
+            self.isMoving = NO;
         }];
     }];
     
     self.pageControl.currentPage = self.currentPage;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+// 是否允许开始点击
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    // 当上一个动画结束后才能点击
+    return !self.isMoving;
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
@@ -411,6 +430,7 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
         _pageControl.pageIndicatorTintColor = [UIColor yellowColor];
         _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
         _pageControl.currentPage = 0;
+        _pageControl.enabled = NO;
         [self addSubview:_pageControl];
     }
     return _pageControl;
