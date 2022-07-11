@@ -223,7 +223,6 @@
                 // 卡片划走的方向 -> 左 下一张
                 [self nextPage: XYMovedDirectionLeft];
             }
-            
             else
             {
                 [UIView animateWithDuration:0.25 animations:^{
