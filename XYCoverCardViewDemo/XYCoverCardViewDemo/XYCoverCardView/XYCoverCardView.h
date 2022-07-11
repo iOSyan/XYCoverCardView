@@ -12,13 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 划走的方向
-typedef NS_ENUM(NSInteger, XYMovedDirectionType)
-{
-    XYMovedDirectionLeft,
-    XYMovedDirectionRight,
-};
-
 typedef  void (^UpdatesBlock)(void);
 typedef  void (^Completion)(BOOL);
 
@@ -36,14 +29,14 @@ typedef  void (^Completion)(BOOL);
 /// 覆盖的方向
 @property (nonatomic, assign) XYCoverDirectionType coverDirectionType;
 
-/// 划走的方向
-@property (nonatomic, assign) XYMovedDirectionType movedDirectionType;
-
 /// 自动轮播时间间隔 默认2s
 @property (nonatomic, assign) CGFloat timerDuration;
 
 /// 数据数组
 @property (nonatomic, strong) NSMutableArray *dataArray;
+
+/// 是否可以把上一张滑回来 默认 - NO
+@property (nonatomic, assign) BOOL isCanReverse;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) CGPoint movingPoint;

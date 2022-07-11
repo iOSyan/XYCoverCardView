@@ -26,13 +26,12 @@
 }
 
 - (void)setupCoverView {
-    self.cardView = [[XYCoverCardView alloc] initWithFrame:CGRectMake(0, 0, 280, 180)];
+    self.cardView = [[XYCoverCardView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-60, 180)];
+    self.cardView.backgroundColor = [UIColor lightGrayColor];
     self.cardView.dataArray = self.dataArray;
-    // 重叠的方向
     self.cardView.coverDirectionType = XYCoverDirectionRight;
-    // 移动的方向
-    self.cardView.movedDirectionType = XYMovedDirectionLeft;
-    self.cardView.timerDuration = 2.0;
+    self.cardView.timerDuration = 5.0;
+    self.cardView.isCanReverse = YES;
     
     self.cardView.center = self.view.center;
     [self.cardView registerCellClass:[XYCoverCell class] forCellWithReuseIdentifier:@"cellID"];
@@ -68,6 +67,7 @@
 }
 
 - (UIColor *)randomColor {
+
     CGFloat hue = ( arc4random() % 256 / 256.0 );  //0.0 to 1.0
     CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  // 0.5 to 1.0,away from white
     CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //0.5 to 1.0,away from black
