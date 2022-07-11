@@ -68,6 +68,7 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
 - (void)setup {
     self.dataArray = [NSMutableArray array];
     
+    self.coverDirectionType = XYCoverDirectionBottom;
     self.timerDuration = 2.0;
 }
 
@@ -406,6 +407,13 @@ typedef NS_ENUM(NSInteger, XYMovedDirectionType)
     _cardViewDataSource = cardViewDataSource;
     
     [self addTimer];
+}
+
+- (void)setCoverDirectionType:(XYCoverDirectionType)coverDirectionType {
+    _coverDirectionType = coverDirectionType;
+    XYCoverCardViewLayout *layout = [[XYCoverCardViewLayout alloc] init];
+    layout.coverDirectionType = coverDirectionType;
+    self.collectionView.collectionViewLayout = layout;
 }
 
 - (void)setDataArray:(NSMutableArray *)dataArray {

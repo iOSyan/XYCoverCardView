@@ -27,7 +27,6 @@
 
 - (void)setupCoverView {
     self.cardView = [[XYCoverCardView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-60, 180)];
-    self.cardView.backgroundColor = [UIColor lightGrayColor];
     self.cardView.dataArray = self.dataArray;
     self.cardView.coverDirectionType = XYCoverDirectionRight;
     self.cardView.timerDuration = 5.0;
